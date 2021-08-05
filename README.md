@@ -16,7 +16,7 @@ CTTEST_SETTING = {
 ```
 ##### 4、新建项目：
 ```dos
-cttest startproject {项目名}
+gaintstart startproject {项目名}
 ```
 ##### 5、本地执行用例
 ```python
