@@ -1,5 +1,6 @@
 ##### 1、安装
 ```dos
+# 暂未上传使用dist下whl包安装即可， pip install <路径>/gaintstar-1.0.0-py3-none-any.whl 即可
 pip install gaintstar
 ```
 ##### 2、用例编写

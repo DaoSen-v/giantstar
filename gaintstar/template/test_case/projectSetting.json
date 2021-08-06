@@ -31,7 +31,7 @@
         },
         "webUser": {
             "user1": {
-                "caps": {"browser": "chrome", "version": "80.0"},
+                "caps": {"browser": "chrome"},
                 "login_step": [
                     {"eventName":"打开页面", "event": "open", "url": "http://www.demo.com/index/login"},
                     {"eventName": "输入用户名", "event": "input", "location": ["id", "username"], "input": "A02441"},
@@ -39,7 +39,11 @@
                     {"eventName": "点击登录", "event": "click", "location": ["id", "loginBtn"]}
                 ]
             },
-            "user2": {}
+            "user2": {
+                "caps": {"browser": "chrome"},
+                "login_step": [
+                ]
+            }
         },
         "appUser": {
             "user1": {
