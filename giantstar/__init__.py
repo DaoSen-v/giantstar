@@ -1,0 +1,8 @@
+__title__ = 'giantstar'
+__description__ = 'There is a toolbox for autotest'
+__url__ = 'https://gitlab.casstime.net/qa/TestArchitecture/cttest'
+__version__ = '2.0'
+__author__ = 'xuyong'
+__author_email__ = '1737985326@qq.com'
+__license__ = 'MIT'
+__copyright__ = 'Copyright 2020 CassTime Technology'

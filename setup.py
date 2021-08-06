@@ -1,19 +1,19 @@
 from setuptools import setup, find_packages
-# pip uninstall gaintstar
+# pip uninstall giantstar
 # python setup.py sdist bdist_wheel
-# pip install E:\CTtest2\dist\gaintstar-1.0.0-py3-none-any.whl
+# pip install E:\CTtest2\dist\giantstar-1.0.0-py3-none-any.whl
 setup(
-    name="gaintstar",
+    name="giantstar",
     version="1.0.0",
     packages=find_packages(),
     package_data={
-        'gaintstar.sessionManage.webSession': ['webdrivers/**/*'],
-        'gaintstar.template': ['report/*', 'test_case/**', 'dataTable/*']
+        'giantstar.sessionManage.webSession': ['webdrivers/**/*'],
+        'giantstar.template': ['report/*', 'test_case/**', 'dataTable/*']
     },
     description='There is a toolbox for autotest',
     author="Ze Hua",
     author_email = '1737985326@qq.com',
-    url='https://gitlab.casstime.net/qa/TestArchitecture/cttest2',
+    url='https://github.com/DaoSen-v/gaintstar',
     license='MIT',
     zip_safe = False,
     install_requires = [
@@ -39,8 +39,8 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'gaintstar = gaintstar.cli:main',
-            'gaintlocust = gaintstar._locust:main_locust'
+            'giantstar = giantstar.cli:main',
+            'gaintlocust = giantstar._locust:main_locust'
         ]
     }
 )
