@@ -4,6 +4,8 @@
 # @Author : xuyong
 
 # @Email: yong1.xu@casstime.com
+import inspect
+
 from gaintstar.globalSetting import plus_setting
 
 
@@ -30,7 +32,8 @@ class NodeParser:
         if isinstance(case_node, str): case_node = analyze_class.analyze(case_node)
         kw = case_node.pop('driver', 'api')
         driver = getattr(plus_setting.DRIVER_BY, kw, None) or getattr(plus_setting.DRIVER_BY, 'user_kw')
-        driver().run(**case_node)
+        args = inspect.getfullargspec(driver.run).args
+        driver().run(**{arg: case_node.get(arg) for arg in args if arg not in ["cls", "self"]})
 
 if __name__ == '__main__':
     a = {}

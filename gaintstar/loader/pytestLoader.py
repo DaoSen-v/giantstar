@@ -3,7 +3,7 @@ import pytest
 import yaml
 import json
 
-from gaintstar.loader.nodeParser import NodeParser
+from gaintstar.loader.easyNodeParser import  NodeParser
 from gaintstar.globalSetting import plus_setting, DYNAMIC_FILE
 from gaintstar.utils.initTest import _Config
 
@@ -26,14 +26,12 @@ class Level:
 
 class TestFile(pytest.File):
     def collect(self):
-        first_tier = _Config.first_tier
         case_list = json.load(self.fspath.open(mode="r", encoding="utf-8"))
         # 初始化项目信息
         for spec in case_list:  # 遍历测试计划列表生成可执行的测试用例
-            case_tier = spec.get("caseTier")  # 获取用例的层级目录
-            module_index = case_tier.index(first_tier) + 1 if first_tier else 0
-            spec["caseTier"] = spec.get("caseTier")[module_index:]
-            module_name = case_tier[0] if len(case_tier) == 1 else case_tier[module_index]  # 获取用例所在模块名称
+            case_tier = spec.get("caseTier").split("-")  # 获取用例的层级目录
+            spec["caseTier"] = case_tier
+            module_name = case_tier[0]  # 获取用例所在模块名称
             parametrize = spec.get("parametrize")
             case_name = spec.get("caseName")
             if parametrize and isinstance(parametrize, list):
@@ -70,8 +68,6 @@ class LoadItem(pytest.Item):
         动态标记用例信息
         :return: None
         """
-        case_path = '/automation/testcase/detail/?id={caseId}&projectId={projectId}&name={caseName}'.format(**self.spec)
-        allure.dynamic.testcase(self.platform_host + case_path, name="点击跳转到平台用例")  # 标记用例连接地址
         case_tier = self.spec.get("caseTier")  # 获取用例层级
         title = self.spec.get("caseName", "untitled")
         if len(case_tier) >= 1:
@@ -106,15 +102,6 @@ class LoadItem(pytest.Item):
         :param excinfo:
         :param **kwargs:
         """
-        # if isinstance(excinfo.value, AssertionError):
-        #     return "\n".join(
-        #         [
-        #             "usecase execution failed",
-        #             "   spec failed: {1!r}: {2!r}".format(*excinfo.value.args),
-        #             "   no further details known at this point.",
-        #         ]
-        #     )
-        # else:
         if plus_setting.PRINT_STACK:
             return super().repr_failure(excinfo, **kwargs)
         else:

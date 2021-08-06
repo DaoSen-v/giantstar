@@ -1,6 +1,6 @@
 import sys
 
-if "ctlocust" in sys.argv[1]:
+if "gaintlocust" in sys.argv[1]:
     try:
         # monkey patch all at beginning to avoid RecursionError when running locust.
         # `from gevent import monkey; monkey.patch_all()` will be triggered when importing locust
@@ -18,7 +18,7 @@ $ pip install locust
 
 import inspect
 import os
-from typing import List
+from typing import List, Dict
 import json
 
 from gaintstar.loader.locustLoader import LocustLoader
@@ -35,7 +35,7 @@ project_path = plus_setting.BASE_DIR
 locust_file = os.path.join(project_path, 'test_case/cttest_locust.json')
 
 
-def prepare_locust_tests() -> List:
+def prepare_locust_tests() -> Dict:
     with open(locust_file, 'r', encoding='utf-8') as f:
         raw = json.load(f)
     locust_tests = LocustLoader.load(raw)

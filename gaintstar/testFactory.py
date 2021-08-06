@@ -1,9 +1,3 @@
-# _*_encoding=utf8_*_
-# @Time : 2021/4/28 14:28 
-
-# @Author : xuyong
-
-# @Email: yong1.xu@casstime.com
 import os
 import sys
 from argparse import Namespace
@@ -31,7 +25,6 @@ class TestFactory:
 
         """
         try:
-
             _Config.load_func()
             if build:
                 logger.info(f"【用例文件】下载中····")
@@ -50,13 +43,10 @@ class TestFactory:
                     driver_class.session_class.close()
             dynamic_test_file = plus_setting.BASE_DIR+"/test_case/"+DYNAMIC_FILE
             dynamic_config = plus_setting.BASE_DIR+"/test_case/"+DYNAMIC_SETTING_FILE
-            print(dynamic_test_file)
             if os.path.exists(dynamic_test_file):
                 logger.info(f"正在删除动态文件")
                 os.remove(dynamic_test_file)
                 os.remove(dynamic_config)
-            else:
-                logger.info(f"动态文件不存在")
             wait_time = globalSetting.WAIT_TIME_COUNT
             logger.info(f"测试计划执行过程中，等待耗时 {wait_time//60}m {wait_time%60}s")
 

@@ -6,7 +6,6 @@ import datetime
 import time
 from random import random
 
-from tool.model import FlyBearController, YAPIController
 from gaintstar.utils.fileReader import ExcelReader, MysqlReader
 
 
@@ -15,15 +14,6 @@ def get_data(dataid, source, use='default'):
         return ExcelReader.get_excel_data(index=dataid, use=use)
     elif source == 'mysql':
         return MysqlReader.get_mysql_data(sql=dataid, use=use)
-
-
-def get_model(model_id):
-    return YAPIController().model(model_id) or FlyBearController().model(model_id)
-
-
-def i_am_demo_func(*args, **kwargs):
-    # 在这里你可实现函数任意可实现的内容
-    return "Hello world!!!"
 
 
 def random_vin():

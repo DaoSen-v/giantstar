@@ -1,5 +1,5 @@
 # _*_encoding=utf8_*_
-# @Time : 2021/4/29 17:37 
+# @Time : 2021/4/29 17:37
 
 # @Author : xuyong
 
@@ -87,14 +87,6 @@ class HTTPDriver(BaseDriver):
             logger.info(f"【请求信息】api={host+path} method={method} req_body={json.dumps(request_param_patch, ensure_ascii=False)}"
                         f"req_body_type={req_body_type} param={json.dumps(req_query, ensure_ascii=False)}")
 
-            # allure.attach(name='请求信息',
-            #               body=f"api={host+path}\n"
-            #                    f"req_body={json.dumps(request_param_patch, ensure_ascii=False)}\n"
-            #                    f"req_body_type={req_body_type}\n"
-            #                    f"method={method}\n"
-            #                    f"param={json.dumps(req_query, ensure_ascii=False)}",
-            #               attachment_type=allure.attachment_type.JSON
-            #               )
         try:
             if "</html>" in response.text:
                 logger.info(f"【接口返回】html响应数据")
@@ -105,13 +97,6 @@ class HTTPDriver(BaseDriver):
                 extract_content = cls.analyze(data_set.get("extract"), uuid) or {}
                 logger.info(f"【变量提取】extract_expression={json.dumps(extract_content, ensure_ascii=False)}")
                 extract_result = cls.extract(response, extract_content, uuid) or {}  # 执行保存变量操作
-                # allure.attach(
-                #     name="提取结果",
-                #     body=f"extract_content={json.dumps(extract_content, ensure_ascii=False)}\n"
-                #          f"extract_result={json.dumps(extract_result, ensure_ascii=False)}\n"
-                #          f"response={response.text}",
-                #     attachment_type=allure.attachment_type.JSON
-                # )
             logger.info(f"【提取结果】extract_result={json.dumps(extract_result, ensure_ascii=False)}")
             with allure.step("请求断言"):
 
@@ -130,7 +115,6 @@ class HTTPDriver(BaseDriver):
             raise e
         except Exception as e:
             logger.error(f"【请求数据】：path={path}, req_query={req_query}, req_body={req_body}, method={method}, body_type={req_body_type}")
-            # logger.error(f"【数据提取】：expression={extract_content}")
             logger.error(f"【返回数据】：path={path}, status_code={response.status_code},response={response.text}")
             raise e
 
@@ -159,27 +143,26 @@ class SimpleHttpDriver(BaseDriver):
     header = plus_setting.HTTP_REQUEST_HEADER  # type: dict
 
     @classmethod
-    def run(cls, step_name, url:str, user, method, param, assert_content, extract=(), headers=None):
-        url = cls.analyze(url)  # type: str
+    def run(cls, step_name, user, param, assert_content, extract=()):
+        param = cls.analyze(param)
+        url = param.get("url")
         if not url.startswith('http'):
             url = _Config.environment.get("default")
         path_param = param.pop('key_path', {})
-        url = url.format(**path_param)
-        headers = cls.header.update(headers or {})
-        param = cls.analyze(param)
+        param["url"] = url.format(**path_param)
+        headers = param.get("headers", {})
+        param["headers"] = cls.header.update(headers)
+
         with allure.step(step_name):
-            logger.info(f"【请求信息】url={url}, method={method}, user={user}, param={param}")
+            logger.info(f"【请求信息】user={user}, param={param}")
             response = cls.session_class.send(
                 user=user,
-                method=method,
-                url=url,
-                headers=headers,
                 **param
             )
-        assert_content = cls.analyze(assert_content)
+
+        logger.info(f"【接口响应】response={response.text}")
+        assert_content = cls.analyze(assert_content) or []
         cls.check(assert_content=assert_content, response=response)
         extract = cls.analyze(extract)
         extract_result = cls.extract(response, extract)
         logger.info(f"【提取结果】extract_result={extract_result}")
-
-

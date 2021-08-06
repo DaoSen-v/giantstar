@@ -1,0 +1,23 @@
+[
+    {
+        "caseLevel": "P2",
+        "caseTier": ["项目", "首页", "添加购物车", "下单"],
+        "caseName": "购物车下单",
+        "caseNodes": [
+            {
+                "stepName": "登录飞熊平台",
+                "driver": "ui_action",
+                "host": "http://ctsp.casstime.com",
+                "user": "user1",
+                "path": "/login",
+                "request": [
+                    {"eventName": "输入用户名", "event": "input", "locations": ["id", "username"], "input": "A02441"},
+                    {"eventName": "输入密码", "event": "input", "locations": ["id", "password"], "input": "Xu173798"},
+                    {"eventName": "点击登录", "event": "click", "locations": ["id", "loginBtn"]}
+                ],
+                "assert": {"ele_exits":["id", "password"]},
+                "extract": []
+            }
+        ]
+    }
+]

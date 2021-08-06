@@ -19,35 +19,24 @@ def get_uniform_comparator(comparator: Text):
         return "greater_than"
     elif comparator in ["ge", "greater_or_equals"]:
         return "greater_or_equals"
-    elif comparator in ["ne", "not_equal", "not_eq"]:
+    elif comparator in ["ne", "not_equal"]:
         return "not_equal"
     elif comparator in ["str_eq", "string_equals"]:
         return "string_equals"
     elif comparator in ["len_eq", "length_equal"]:
         return "length_equal"
-    elif comparator in [
-        "len_gt",
-        "length_greater_than",
-    ]:
+    elif comparator in ["len_gt", "length_greater_than"]:
         return "length_greater_than"
-    elif comparator in [
-        "len_ge",
-        "length_greater_or_equals",
-    ]:
+    elif comparator in ["len_ge", "length_greater_or_equals"]:
         return "length_greater_or_equals"
     elif comparator in ["len_lt", "length_less_than"]:
         return "length_less_than"
-    elif comparator in [
-        "len_le",
-        "length_less_or_equals",
-    ]:
+    elif comparator in ["len_le","length_less_or_equals"]:
         return "length_less_or_equals"
     elif comparator in ["reg"]:
         return "regex_match"
-    elif comparator in ["in", "contain"]:
+    elif comparator in ["in", "contains"]:
         return "contains"
-    elif comparator in ["contains"]:
-        return "old_contains"
     else:
         return comparator
 

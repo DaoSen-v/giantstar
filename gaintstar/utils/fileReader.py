@@ -1,3 +1,9 @@
+# _*_encoding=utf8_*_
+# @Time : 2021/6/10 16:07 
+
+# @Author : xuyong
+
+# @Email: yong1.xu@casstime.com
 import json
 from typing import List
 
@@ -25,10 +31,10 @@ class ExcelReader:
 
     @classmethod
     def refresh_index(cls, index):
-        index_list: List = index.split('.')
+        index_list:List = index.split('.')
         if len(index_list) == 2:
             return index_list
-        raise DataIndexError(f"【数据索引】data index error，expect get 'a.b', but get '{index}'")
+        raise DataIndexError(f"【数据索引】data index error，expect get 'a.b', but get '{index}'.")
 
 
 class MysqlReader:

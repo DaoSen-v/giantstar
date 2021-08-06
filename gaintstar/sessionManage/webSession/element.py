@@ -25,11 +25,11 @@ def interceptor_operations(timeout):
     def out(func):
         def interceptor(cls, browser: WebDriver,  locations: List, event):
             start_time = int(time.time())
-            time.sleep(1)
+            end_time = int(time.time())
             browser.switch_to.default_content()
             iframe = browser.find_elements_by_tag_name('iframe')
 
-            while int(time.time()) - start_time < timeout:
+            while end_time - start_time < timeout:
                 ele = func(cls, browser, locations, event)
                 if ele:
                     return ele
@@ -38,6 +38,8 @@ def interceptor_operations(timeout):
                     ele = func(cls, browser, locations, event)
                     if ele:
                         return ele
+                time.sleep(1)
+                end_time = int(time.time())
 
             if event not in NOT_RAISE_EXCEPTION:
                 logger.error(f'【元素定位】元素定位超时，请检查元素定位是否有误, location={locations}')

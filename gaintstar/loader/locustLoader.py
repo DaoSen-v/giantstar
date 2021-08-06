@@ -1,7 +1,7 @@
 # 本模块应用于性能测试，本模块依赖driver 下HTTPDriver, KWDriver, 请确依赖驱动正常
 import inspect
 import uuid
-from typing import List
+from typing import List, Dict
 
 from gaintstar.globalSetting import plus_setting
 from gaintstar.utils.logger import logger
@@ -14,7 +14,7 @@ class LocustDriverBy(DriverBy):
 
 
 class LocustLoader:
-    task = []
+    task = {}
 
     class Task:
         def __init__(self, func, title, **kwargs):
@@ -32,13 +32,17 @@ class LocustLoader:
             )
 
     @classmethod
-    def load(cls, raw) -> List:
+    def load(cls, raw) -> Dict:
         for spec in raw:  # 遍历测试计划列表生成可执行的测试用例
             title = spec.get("caseName")
             parametrize = spec.get("parametrize")
+            weight = spec.get("weight", 1)
             if parametrize:
                 raise Exception(f'【格式错误】性能测试不支持TDD数据驱动，请检查用例编写格式后再继续')
-            cls.task.append(cls.Task(cls.case_parse, title, spec=spec))
+            if cls.task.get(weight):
+                cls.task[weight].append(cls.Task(cls.case_parse, title, spec=spec))
+            else:
+                cls.task[weight] = [cls.Task(cls.case_parse, title, spec=spec)]
         return cls.task
 
     @classmethod

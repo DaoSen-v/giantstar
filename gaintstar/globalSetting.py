@@ -27,7 +27,7 @@ DYNAMIC_SETTING_FILE = f"{str(uuid.uuid1())}.json"
 
 DEFAULTS = {
     "BASE_DIR": os.path.dirname(os.path.realpath(__file__)),
-    "PRINT_STACK": False,
+    "PRINT_STACK": True,
     "DEBUG": True,  #
     "LEVEL": "INFO",
     "SELENOID_HOSTS": ['http://10.118.71.154', 'http://10.118.71.155'],
@@ -47,7 +47,7 @@ DEFAULTS = {
         }
     },
     "ANALYZE_CLASS": "gaintstar.utils.dataParser.JsonParser",
-    "DRIVER_BY": "gaintstar.drivers.driverBy.DriverBy",
+    "DRIVER_BY": "gaintstar.drivers.driverBy.SimpleDriverBy",
     "KW_DRIVER":"gaintstar.drivers.kwDriver.KeyWordDriver",
     'HTTP_DRIVER': "gaintstar.drivers.httpDriver.HTTPDriver",
     'WEB_DRIVER': "gaintstar.drivers.webDriver.WEBDriver",
@@ -55,12 +55,12 @@ DEFAULTS = {
     "DEBUG_DRIVER": "gaintstar.drivers.debugDriver.DebugDriver",
     "HTTP_SIMPLE_DRIVER":"gaintstar.drivers.httpDriver.SimpleHttpDriver",
     "WEB_SIMPLE_DRIVER":"gaintstar.drivers.webDriver.SimpleWEBDriver",
-    "APP_SIMPLE_DRIVER":"",
+    "APP_SIMPLE_DRIVER":"gaintstar.drivers.appDriver.SimpleAPPDriver",
     "APK": None,
     "IPA": None,
     "REMOTE": True,
     "SELENOID": {
-        "hosts":  ['http://10.118.71.154', 'http://10.118.71.155'],
+        "hosts":  ['xxx', 'xxx'],
         "selenoid_video_dir": "/home/selenoid_ui/video",
         "nginx_video_dir": "/html/video/web",
         "video_url_prefix": "/video/web",
@@ -145,7 +145,7 @@ class Setting:
     @property
     def user_settings(self):
         if not hasattr(self, '_user_settings'):
-            self._user_settings = getattr(CUSTOMER_SETTINGS, 'CTTEST_SETTING', {})
+            self._user_settings = getattr(CUSTOMER_SETTINGS, 'GIANT_SETTING', {})
         return self._user_settings
 
     def __getattr__(self, attr):

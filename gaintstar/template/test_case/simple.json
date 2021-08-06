@@ -4,8 +4,8 @@
         "caseName": "购物车下单",
         "caseTier": "项目-首页-添加购物车-下单",
         "parametrize": [
-            {"_title": "参数化数据1", "username": "username1", "password":  "password"},
-            {"_title": "参数化数据2", "username": "username2", "password":  "password"}
+            {"_title": "参数化数据1", "username": "A02441", "password":  "Xu173798"},
+            {"_title": "参数化数据2", "username": "A02441", "password":  "xu1"}
         ],
         "caseNodes": [
             {
@@ -26,8 +26,8 @@
         "caseLevel": "P1",
         "caseName": "购物车下单",
         "parametrize": [
-            {"_title": "参数化数据1", "username": "username", "password":  "123456"},
-            {"_title": "参数化数据2", "username": "123456", "password":  "123456"}
+            {"_title": "参数化数据1", "username": "A02441", "password":  "Xu173798"},
+            {"_title": "参数化数据2", "username": "A02441", "password":  "xu1"}
         ],
         "caseNodes": [
             {

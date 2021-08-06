@@ -182,7 +182,7 @@ class WEBSession(BaseSession):
             step = analyze_class.analyze(step)
         step = analyze_class.analyze(step, uuid)
         event = step.get("event")
-        ele_name = step.get("eleName")
+        ele_name = step.get("eventName")
         location = step.get("location")
         target = step.get("target")
         # 添加步骤参数类，与业务模型id

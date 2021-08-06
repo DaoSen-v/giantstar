@@ -96,7 +96,6 @@ class SimpleWEBDriver(BaseDriver):
         Webdriver驱动执行浏览器元素定位与元素动作操作
         :param user: "user1",
         :param param:
-
             {"eventName": "元素点击", "event": "click", "locations": ["css selector", "#kw"]}
             {"eventName": "输入内容", "event": "input", "locations": ["xpath", "#btn"], "input": "输入内容"}
             {"eventName": "打开网页", "event": "open", "url": "输入内容"}
@@ -106,7 +105,6 @@ class SimpleWEBDriver(BaseDriver):
             {"eventName": "鼠标移动", "event": "mouse_hover", "target": ["id", "kw"]}
             {"eventName": "标签属性保存", "event": "get_tag_attr", "location": ["id", "kw"], "attr": ["expr", "alias_name"]}
             {"eventName": "标签属性变更", "event": "set_tag_attr", "location": ["id", "kw"], "attr": ["name", "value"]}
-
         :param assert_content: [
             {"ele_exits":["css", "#id"]},
             {"title_exits": "title"},
